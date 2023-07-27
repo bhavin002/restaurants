@@ -10,5 +10,9 @@
     echo "Changes Made in fsfdsfsdMain"; 
     echo "Changesfs Made in Msdfsdfsdfain"; 
     echo "Changes fsdfsMade insdfsdf Main"; 
+<<<<<<< HEAD
     echo "Changes Made in fsdfsdfMain"; 
+=======
+    echo "We are starting our project";
+>>>>>>> remotes/origin/main
 ?>
