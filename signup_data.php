@@ -2,24 +2,21 @@
 
 include('dbconf.php');
 
-$fname = $_POST['fname'];
-$lname = $_POST['lname'];
-$email = $_POST['email'];
-$password = $_POST['password'];
-$pincode = $_POST['pincode'];
-$phoneNumber = $_POST['phoneNumber'];
+if (isset($_POST['fname']) && isset($_POST['lname']) && isset($_POST['email']) && isset($_POST['phoneNumber'])  && isset($_POST['pincode']) && isset($_POST['password'])) {
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $email = $_POST['email'];
+    $phoneNumber = $_POST['phoneNumber'];
+    $pincode = $_POST['pincode'];
+    $hashPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-if(isset($fname) && isset($lname) && isset($phoneNumber) && isset($email) && isset($pincode) && isset($password)){
-    
     $query = "INSERT INTO CUSTOMER(fname,lname,email,phone_number,pincode,password) 
-    VALUES ('$fname','$lname','$email','$phoneNumber','$pincode','$password')";
-    echo $query;
-    
-    if($con->query($query)){
+    VALUES ('$fname','$lname','$email','$phoneNumber','$pincode','$hashPassword')";
+    // echo $query;
+
+    if ($con->query($query)) {
         header("Location: login.php");
     }
-    
+} else {
+    echo "Invalid Request";
 }
-
-
-?>

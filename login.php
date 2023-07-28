@@ -22,22 +22,24 @@ include('header.php');
                 <div class="col-lg-4 reservation-img" style="background-image: url(assets/img/reservation.jpg);"></div>
 
                 <div class="col-lg-8 d-flex align-items-center reservation-form-bg">
-                    <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form">
+                    <form action="login_data.php" method="post" role="form" class="php-email-form">
                         <div class="row gy-4 text-center">
                             <div class="col-lg-12 mx-auto">
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
                                 <div class="validate"></div>
                             </div>
                             <div class="col-lg-12 mx-auto">
-                                <input type="password" name="name" class="form-control" id="name" placeholder="Your Password" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Your Password" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
                                 <div class="validate"></div>
                             </div>
-                        <div class="mb-3">
-                            <div class="loading">Loading</div>
-                            <div class="error-message"></div>
-                            <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!</div>
-                        </div>
-                        <div class="text-center"><button type="submit">Book a Table</button></div>
+                            <div class="mb-3">
+                                <div class="loading">Loading</div>
+                                <div class="error-message"></div>
+                                <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!</div>
+                            </div>
+                            <div class="text-center"><button type="submit">Login</button></div>
+                            <a class="btn-book-a-table" href="signup.php">SignUp</a>
+
                     </form>
                 </div><!-- End Reservation Form -->
 
