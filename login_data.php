@@ -16,48 +16,21 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $isMatch = password_verify($password, $row['password']);
         // Verify the password (in a real-world scenario, use password_hash() for storing hashed passwords)
         if ($isMatch) {
-
-            echo $isMatch;
-            // Login successful
-            // Store user data in session (if using sessions)
             $_SESSION["id"] = $row["id"];
             $_SESSION["fname"] = $row["fname"];
             $_SESSION["email"] = $row["email"];
-            // Redirect to a protected page or dashboard
+
             header("Location: index.php");
             exit;
+
+            // echo "password matched";
         } else {
             // Incorrect password
-            echo "Hello";
-            echo $isMatch;
             echo "Invalid password";
         }
     } else {
-        // User not found
         echo "User not found";
     }
-    // echo $query;
-    // print_r($isEmail);
-    // while ($row = $isEmail->fetch_assoc()) {
-    //     print_r($row['password']);
-    // }
-
-
-    // if ($con->query($query)) {
-    //     header("Location: login.php");
-    // }
-
-    // if ($con->query($query)) {
-    //     header("Location: login.php");
-    // }
-    $hash = '$2y$10$Maxgvs4Uc.bB3MdMLMeqhulijYWLPj/mk9wTRS97szJ';
-
-    if (password_verify('123', $hash)) {
-        echo 'Password is valid!';
-    } else {
-        echo 'Invalid password.';
-    }
-
 
     $con->close();
 }

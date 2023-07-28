@@ -37,8 +37,8 @@ include('header.php');
                                 <div class="error-message"></div>
                                 <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!</div>
                             </div>
-                            <div class="text-center"><button type="submit">Login</button></div>
-                            <a class="btn-book-a-table" href="signup.php">SignUp</a>
+                            <div><button class="btn btn-danger" type="submit">Login</button>&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-danger" type="submit"><a href="signup.php" style="color:aliceblue;font-weight: bold;">signup</a></button></div>
 
                     </form>
                 </div><!-- End Reservation Form -->
