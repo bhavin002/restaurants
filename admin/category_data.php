@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    include('dbconf.php');
+    include('../dbconf.php');
 
 
     // Delete Category
