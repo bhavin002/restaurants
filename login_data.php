@@ -14,7 +14,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     if ($result->num_rows == 1) {
         $row = $result->fetch_assoc();
         $isMatch = password_verify($password, $row['password']);
-        // Verify the password (in a real-world scenario, use password_hash() for storing hashed passwords)
         if ($isMatch) {
             $_SESSION["id"] = $row["id"];
             $_SESSION["fname"] = $row["fname"];
@@ -22,10 +21,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             $_SESSION['is_admin'] = $row["is_admin"];
             header("Location: index.php");
             exit;
-
-            // echo "password matched";
         } else {
-            // Incorrect password
             echo "Invalid password";
         }
     } else {

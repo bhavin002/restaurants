@@ -2,7 +2,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-        <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
+        <a href="index.php" class="logo d-flex align-items-center me-auto me-lg-0">
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <h1>Yummy<span>.</span></h1>
             <!-- <img src="assets/img/logo.png" alt=""> -->
@@ -10,8 +10,8 @@
         
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#menu">Menu</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="menu.php">Menu</a></li>
                 <?php
                     session_start();
                     if(isset($_SESSION['is_admin'])){

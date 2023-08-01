@@ -9,18 +9,13 @@ include('header.php');
     include('navbar.php');
     ?>
 
-    <!-- ======= Book A Table Section ======= -->
     <section id="book-a-table" class="book-a-table">
         <div class="container">
-
             <div class="section-header">
                 <p>Login</p>
             </div>
-
             <div class="row g-0">
-
                 <div class="col-lg-4 reservation-img" style="background-image: url(assets/img/reservation.jpg);"></div>
-
                 <div class="col-lg-8 d-flex align-items-center reservation-form-bg">
                     <form action="login_data.php" method="post" role="form" class="php-email-form">
                         <div class="row gy-4 text-center">
@@ -39,13 +34,10 @@ include('header.php');
                             </div>
                             <div><button class="btn btn-danger" type="submit">Login</button>&nbsp;&nbsp;&nbsp;
                             <button class="btn btn-danger" type="submit"><a href="signup.php" style="color:aliceblue;font-weight: bold;">signup</a></button></div>
-
                     </form>
-                </div><!-- End Reservation Form -->
-
+                </div>
             </div>
-
         </div>
-    </section><!-- End Book A Table Section -->
+    </section>
 
 </body>

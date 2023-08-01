@@ -12,7 +12,6 @@ if (isset($_POST['fname']) && isset($_POST['lname']) && isset($_POST['email']) &
 
     $query = "INSERT INTO CUSTOMER(fname,lname,email,phone_number,pincode,password) 
     VALUES ('$fname','$lname','$email','$phoneNumber','$pincode','$hashPassword')";
-    // echo $query;
 
     if ($con->query($query)) {
         header("Location: login.php");
