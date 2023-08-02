@@ -143,5 +143,6 @@ include('header.php');
 </body>
 
 <?php
-include('footer.php')
+include('footer.php');
+include('../footer_javascript.php');
 ?>
