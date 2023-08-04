@@ -15,18 +15,32 @@ include('header.php');
             <section id="book-a-table" class="book-a-table">
                 <div class="container">
                     <div class="section-header">
-                        <p>Category</p>
+                        <p>Menu-Item</p>
                     </div>
                     <div class="row">
                         <div class="col-8 mx-auto">
-                            <form action="category_data.php" method="post" enctype="multipart/form-data">
+                            <form action="menu_item_data.php" method="post" enctype="multipart/form-data">
                                 <div class="col-lg-8 mx-auto">
-                                    <input type="text" class="form-control" required name="name" id="name" placeholder="Ex. Italian,Punjabi...">
+                                    <input type="text" class="form-control" name="item_name" id="item_name" placeholder="Ex. Burger,Pizza..." required>
+                                </div>
+                                <div class="col-lg-8 mt-4 mx-auto">
+                                    <select name="category" class="form-select form-select-sm mb-3" aria-label=".form-select-lg example" required>
+                                        <option disabled selected>Choose One Category</option>
+                                        <?php
+                                        $res = $con->query('select * from `category`;');
+                                        foreach ($res as $rec) {
+                                            echo "<option value='{$rec['id']}'>{$rec['name']}</option>";
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
                                 <div class="col-lg-8 mx-auto my-4">
-                                    <input type="file" class="form-control" required name="image" id="image">
+                                    <input type="number" class="form-control" name="price" id="price" required>
                                 </div>
-                                <input type="submit" class="btn btn-outline-success d-block mx-auto" value="Add Category">
+                                <div class="col-lg-8 mx-auto my-4">
+                                    <input type="file" class="form-control" name="image" id="image" required>
+                                </div>
+                                <input type="submit" class="btn btn-outline-success d-block mx-auto" value="Add Menu_item">
                             </form>
                             <?php
                             include('message.php');
@@ -39,16 +53,20 @@ include('header.php');
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
                                     <th>Image</th>
                                     <th class='text-center'>Action</th>
                                 </tr>
                                 <?php
-                                $res = $con->query('select * from `category`;');
+                                $res = $con->query('select * from `menu_item`;');
                                 foreach ($res as $rec) {
                                 ?>
                                     <tr class="align-middle">
                                         <td><?= $rec['id']; ?></td>
-                                        <td><?= $rec['name']; ?></td>
+                                        <td><?= $rec['item_name']; ?></td>
+                                        <td><?= $rec['category_id']; ?></td>
+                                        <td><?= $rec['price']; ?></td>
                                         <td><img style="width: 200px;height:200px;object-fit:contain;mix-blend-mode: darken;" src="<?= $rec['image']; ?>"></td>
                                         <td>
                                             <div class='row col-10 mx-auto'>
@@ -56,7 +74,7 @@ include('header.php');
                                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#openUpdateModal<?= $rec['id']; ?>">Update</button>
                                                 </div>
                                                 <div class='col-3 mx-auto'>
-                                                    <a href="category_data.php?delete=true&id=<?= $rec['id'] ?>" class='btn btn-danger'>Delete</a>
+                                                    <a href="menu_item_data.php?delete=true&id=<?= $rec['id'] ?>" class='btn btn-danger'>Delete</a>
                                                 </div>
                                             </div>
                                         </td>
@@ -66,26 +84,45 @@ include('header.php');
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">Update Category</h4>
+                                                    <h4 class="modal-title">Update Menu_item</h4>
                                                     <button type="button" class="btn close" data-bs-dismiss="modal">&times;</button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="row">
                                                         <div class=" mx-auto">
-                                                            <form action="category_data.php" method="post" enctype="multipart/form-data">
+                                                            <form action="menu_item_data.php" method="post" enctype="multipart/form-data">
                                                                 <input type="text" name="id" value="<?= $rec['id']; ?>" hidden>
                                                                 <input type="text" name="update" value="true" hidden>
                                                                 <div class="col-lg-8 mx-auto">
-                                                                    <input type="text" class="form-control" value="<?= $rec['name']; ?>" required name="name" id="name" placeholder="Ex. Italian,Punjabi...">
+                                                                    <input type="text" class="form-control" value="<?= $rec['item_name']; ?>" name="item_name" id="item_name" placeholder="Ex. Italian,Punjabi..." required>
+                                                                </div>
+                                                                <div class="col-lg-8 mx-auto">
+                                                                    <select name="category" class="form-select mt-4 form-select-sm mb-3" aria-label=".form-select-lg example" required>
+                                                                        <option disabled selected>Choose One Category</option>
+                                                                        <?php
+                                                                        $res = $con->query('select * from `category`;');
+                                                                        foreach ($res as $cat) {
+                                                                            if ($rec['category_id'] == $cat['id']) {
+                                                                                $selected = "selected";
+                                                                            } else {
+                                                                                $selected = "";
+                                                                            }
+                                                                            echo "<option {$selected} value='{$cat['id']}'>{$cat['name']}</option>";
+                                                                        }
+                                                                        ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-lg-8 mx-auto">
+                                                                    <input type="number" class="form-control" value="<?= $rec['price']; ?>" name="price" id="price" placeholder="Price">
                                                                 </div>
                                                                 <div class="col-lg-8 mx-auto my-4">
-                                                                    <input type="file" class="form-control" name="image" id="image" placeholder="Ex. Italian,Punjabi...">
+                                                                    <input type="file" class="form-control" name="image" id="image">
                                                                     <span class="text-danger">Upload image if you want to update.</span>
                                                                 </div>
                                                                 <div class="col-lg-8 mx-auto my-4">
                                                                     <img class="d-block mx-auto" style="width: 200px;height:200px;object-fit:contain;mix-blend-mode: darken;" src="<?= $rec['image']; ?>">
                                                                 </div>
-                                                                <input type="submit" class="btn btn-outline-success d-block mx-auto" value="Update Category">
+                                                                <input type="submit" class="btn btn-outline-success d-block mx-auto" value="Update Menu_item">
                                                             </form>
                                                         </div>
                                                     </div>
@@ -99,6 +136,7 @@ include('header.php');
                             </table>
                         </div>
                     </div>
+
                 </div>
             </section>
         <?php

@@ -20,11 +20,11 @@ include('header.php');
                     <form action="login_data.php" method="post" role="form" class="php-email-form">
                         <div class="row gy-4 text-center">
                             <div class="col-lg-12 mx-auto">
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" required>
                                 <div class="validate"></div>
                             </div>
                             <div class="col-lg-12 mx-auto">
-                                <input type="password" name="password" class="form-control" id="password" placeholder="Your Password" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Your Password" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required>
                                 <div class="validate"></div>
                             </div>
                             <div class="mb-3">
