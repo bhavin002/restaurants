@@ -19,6 +19,10 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             $_SESSION["fname"] = $row["fname"];
             $_SESSION["email"] = $row["email"];
             $_SESSION['is_admin'] = $row["is_admin"];
+            if($_SESSION['is_admin']=='1'){
+                header("Location: admin/dashboard.php");
+                exit;
+            }
             header("Location: index.php");
             exit;
         } else {

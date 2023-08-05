@@ -12,13 +12,15 @@ include('header.php');
     <div id="content" class="p-4 p-md-5 pt-5">
       <p class="lead">Manage The Category</p>
       
-  <?php
-    if(! isset($_SESSION)){
-        session_start();
-    }
-    if(isset($_SESSION['is_admin'])){
-        if($_SESSION['is_admin']=='1'){
-            ?>
+    <?php
+        if(! isset($_SESSION)){
+            session_start();
+        }
+        if(isset($_SESSION['is_admin']))
+        {
+            if($_SESSION['is_admin']=='1')
+            {
+    ?>
             
             
             <section id="book-a-table" class="book-a-table">
@@ -33,7 +35,7 @@ include('header.php');
                             <form action="category_data.php" method="post" enctype="multipart/form-data">
                                 
                                 <div class="col-lg-8 mx-auto">
-                                    <input type="name" class="form-control" required name="name" id="name" placeholder="Ex. Italian,Punjabi...">
+                                    <input type="name" class="form-control border" required name="name" id="name" placeholder="Ex. Italian,Punjabi...">
                                     <div class="validate"></div>
                                 </div>
                                 <div class="col-lg-8 mx-auto my-4">
