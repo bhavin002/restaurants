@@ -4,71 +4,73 @@ include('./dbconf.php');
 
 // Delete Category
 if (isset($_GET['delete']) && isset($_GET['id'])) {
-    $categoryId = $_GET['id'];
+    $itemId = $_GET['id'];
 
     // Searching category if exists or not  .
-    $categoryExist = $con->query("select * from category where id=$categoryId limit 1")->fetch_assoc();
-    if ($categoryExist) {
+    $itemExist = $con->query("select * from menu_item where id=$itemId limit 1")->fetch_assoc();
+    if ($itemExist) {
 
         // Deleting image that is present in our server.
         try {
-            unlink($_SERVER['DOCUMENT_ROOT'] . $categoryExist['image']);
+            unlink($_SERVER['DOCUMENT_ROOT'] . $itemExist['image']);
         } catch (\Throwable $th) {
             // Ignoring error if it comes when deleting image.
         }
 
         // Deleting category.
-        $con->query("delete from category where id = $categoryId");
+        $con->query("delete from menu_item where id = $itemId");
         $_SESSION['message'] = 'Deleted Successfully';
-        header('Location: category.php');
+        header('Location: menu_item.php');
     } else {
-        echo "No category found to delete";
+        echo "No Item found to delete";
     }
     exit();
 }
 
 // Update Category
 if (isset($_POST['update']) && isset($_POST['id'])) {
-    $categoryId = $_POST['id'];
-    $categoryName = $_POST['name'];
+    $itemId = $_POST['id'];
+    $item_name = $_POST['item_name'];
+    $category = $_POST['category'];
+    $price = $_POST['price'];
 
     // Searching category if exists or not.
-    $categoryExist = $con->query("select * from category where id=$categoryId limit 1")->fetch_assoc();
-    if ($categoryExist) {
+    $menu_item_exist = $con->query("select * from menu_item where id=$itemId limit 1")->fetch_assoc();
+    if ($menu_item_exist) {
 
         // Check if image is uploaded or not. If uploaded then we will update image also.
         if ($_FILES["image"]['name'] == null) {
-            $updateQuery  = $con->query("update category set name='$categoryName' where id=$categoryId");
-            $statusMsg = "The " . $categoryName . " has been successfully updated .";
+            $updateQuery  = $con->query("update menu_item set item_name='$item_name',category_id='$category',price='$price' where id=$itemId");
+            $statusMsg = "The " . $item_name . " has been successfully updated .";
         } else {
 
             // For uploading image of category.
-            $uploadTargetDir = $_SERVER['DOCUMENT_ROOT'] . "/restaurants/uploads/category/";
-            $dbTargetDirPath = "/restaurants/uploads/category/";
+            $uploadTargetDir = $_SERVER['DOCUMENT_ROOT'] . "/restaurants/uploads/menu_item/";
+            $dbTargetDirPath = "/restaurants/uploads/menu_item/";
             $uploadedFileName = basename($_FILES["image"]["name"]);
 
             // Checking uploaded file is image or not
             $fileType = pathinfo($uploadedFileName, PATHINFO_EXTENSION);
             $allowTypes = array('jpg', 'png', 'jpeg', 'webp');
             if (in_array($fileType, $allowTypes)) {
-                $imageFileName = $categoryName . '-' . time() . "." . $fileType;
-                $categoryName = $categoryName;
+                $imageFileName = $item_name . '-' . time() . "." . $fileType;
+                $item_name = $item_name;
 
                 //Uploading image to folder. 
                 if (move_uploaded_file($_FILES["image"]["tmp_name"], $uploadTargetDir . $imageFileName)) {
 
                     // Deleting image that is present in our server and updating image.
                     try {
-                        unlink($_SERVER['DOCUMENT_ROOT'] . $categoryExist['image']);
+                        unlink($_SERVER['DOCUMENT_ROOT'] . $menu_item_exist['image']);
                     } catch (\Throwable $th) {
                         // Ignoring error if it comes when deleting image.
                     }
 
                     // Insert image file name into database
                     $dbImageFileName = "$dbTargetDirPath" . "$imageFileName";
-                    $update = $con->query("UPDATE category SET NAME = '$categoryName', IMAGE = '$dbImageFileName' WHERE ID = $categoryId");
+                    $update = $con->query("UPDATE menu_item SET item_name = '$item_name', image = '$dbImageFileName' WHERE ID = $itemId");
                     if ($update) {
-                        $statusMsg = "The " . $categoryName . " has been successfully updated .";
+                        $statusMsg = "The " . $item_name . " has been successfully updated .";
                     } else {
                         $statusMsg = "File upload failed, please try again.";
                     }
@@ -80,36 +82,38 @@ if (isset($_POST['update']) && isset($_POST['id'])) {
             }
         }
         $_SESSION['message'] = $statusMsg;
-        header("Location: category.php");
+        header("Location: menu_item.php");
     } else {
-        echo "No category found to update";
+        echo "No Item found to update";
     }
     exit();
 }
 
 // Create Category
-if (isset($_POST['name']) && isset($_FILES['image'])) {
+if (isset($_POST['item_name']) && isset($_POST['category']) && isset($_POST['price']) && isset($_FILES['image'])) {
 
     // For uploading image of category.
-    $uploadTargetDir = $_SERVER['DOCUMENT_ROOT'] . "/restaurants/uploads/category/";
-    $dbTargetDirPath = "/restaurants/uploads/category/";
+    $uploadTargetDir = $_SERVER['DOCUMENT_ROOT'] . "/restaurants/uploads/menu_item/";
+    $dbTargetDirPath = "/restaurants/uploads/menu_item/";
     $uploadedFileName = basename($_FILES["image"]["name"]);
 
     // Checking uploaded file is image or not
     $fileType = pathinfo($uploadedFileName, PATHINFO_EXTENSION);
     $allowTypes = array('jpg', 'png', 'jpeg', 'webp');
     if (in_array($fileType, $allowTypes)) {
-        $imageFileName = $_POST['name'] . '-' . time() . "." . $fileType;
-        $categoryName = $_POST['name'];
+        $item_name = $_POST['item_name'];
+        $category = $_POST['category'];
+        $price = $_POST['price'];
+        $imageFileName = $_POST['item_name'] . '-' . time() . "." . $fileType;
 
         //Uploading image to folder. 
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $uploadTargetDir . $imageFileName)) {
 
             // Insert image file name into database
             $dbImageFileName = "$dbTargetDirPath" . "$imageFileName";
-            $insert = $con->query("INSERT into category (name, image) VALUES ('$categoryName', '$dbImageFileName')");
+            $insert = $con->query("INSERT into menu_item (item_name,category_id,price,image) VALUES ('$item_name', '$category','$price','$dbImageFileName')");
             if ($insert) {
-                $statusMsg = "The " . $categoryName . " has been successfully inserted .";
+                $statusMsg = "The " . $item_name . " has been successfully inserted .";
             } else {
                 $statusMsg = "File upload failed, please try again.";
             }
@@ -120,7 +124,7 @@ if (isset($_POST['name']) && isset($_FILES['image'])) {
         $statusMsg =  "Uploaded file is not image.";
     }
     $_SESSION['message'] = $statusMsg;
-    header("Location: category.php");
+    header("Location: menu_item.php");
 }
 
 echo "Invalid request made.";
