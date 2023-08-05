@@ -102,14 +102,12 @@ include('header.php');
                 </div>
             </section>
         <?php
-        } else {
+        } else{
+                header("Location: index.php");
+        }
         ?>
-            <h2>Invalid request</h2>
     <?php
         }
-    } else {
-        echo "Invalid request made";
-    }
     ?>
 </body>
 <?php

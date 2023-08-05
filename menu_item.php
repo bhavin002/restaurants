@@ -35,7 +35,7 @@ include('header.php');
                                     </select>
                                 </div>
                                 <div class="col-lg-8 mx-auto my-4">
-                                    <input type="number" class="form-control" name="price" id="price" required>
+                                    <input type="number" class="form-control" name="price" placeholder="Price" id="price" required>
                                 </div>
                                 <div class="col-lg-8 mx-auto my-4">
                                     <input type="file" class="form-control" name="image" id="image" required>
@@ -141,12 +141,10 @@ include('header.php');
             </section>
         <?php
         } else {
-        ?>
-            <h2>Invalid request</h2>
-    <?php
+            header("Location: index.php");
         }
-    } else {
-        echo "Invalid request made";
+        ?>
+    <?php
     }
     ?>
 </body>
