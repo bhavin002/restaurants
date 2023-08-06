@@ -33,7 +33,10 @@ include('header.php');
                                 <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!</div>
                             </div>
                             <div><button class="btn btn-danger" type="submit">Login</button>&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-danger" type="submit"><a href="signup.php" style="color:aliceblue;font-weight: bold;">signup</a></button></div>
+                                <button class="btn btn-danger" type="button"><a href="signup.php" style="color:aliceblue;">Signup
+                                    </a></button>
+                            </div>
+                            <!-- <button class="btn btn-danger" type="submit"><a href="signup.php" style="color:aliceblue;font-weight: bold;">signup</a></button> -->
                     </form>
                 </div>
             </div>

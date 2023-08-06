@@ -161,8 +161,9 @@ include('header.php');
             </section>
         <?php
         } else {
+            header("Location: index.php");
+        }
         ?>
-            <h2>Invalid request</h2>
     <?php
         }
     } else {
