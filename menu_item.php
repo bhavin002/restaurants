@@ -23,6 +23,10 @@ include('header.php');
                                 <div class="col-lg-8 mx-auto">
                                     <input type="text" class="form-control" name="item_name" id="item_name" placeholder="Ex. Burger,Pizza..." required>
                                 </div>
+
+                                <div class="col-lg-8 mx-auto mt-4">
+                                    <input type="text" class="form-control" name="detail" id="detail" placeholder="Ex. Ingredients.." required>
+                                </div>
                                 <div class="col-lg-8 mt-4 mx-auto">
                                     <select name="category" class="form-select form-select-sm mb-3" aria-label=".form-select-lg example" required>
                                         <option disabled selected>Choose One Category</option>
@@ -35,7 +39,10 @@ include('header.php');
                                     </select>
                                 </div>
                                 <div class="col-lg-8 mx-auto my-4">
-                                    <input type="number" class="form-control" name="price" id="price" required>
+                                    <input type="number" placeholder="Price" class="form-control" name="price" id="price" required>
+                                </div>
+                                <div class="col-lg-8 mx-auto my-4">
+                                    <input type="number" placeholder="Qty" class="form-control" name="qty" id="qty" required>
                                 </div>
                                 <div class="col-lg-8 mx-auto my-4">
                                     <input type="file" class="form-control" name="image" id="image" required>
@@ -55,6 +62,7 @@ include('header.php');
                                     <th>Name</th>
                                     <th>Category</th>
                                     <th>Price</th>
+                                    <th>Qty</th>
                                     <th>Image</th>
                                     <th class='text-center'>Action</th>
                                 </tr>
@@ -65,8 +73,14 @@ include('header.php');
                                     <tr class="align-middle">
                                         <td><?= $rec['id']; ?></td>
                                         <td><?= $rec['item_name']; ?></td>
-                                        <td><?= $rec['category_id']; ?></td>
+                                        <td>
+                                            <?php
+                                            $categoryName = mysqli_fetch_assoc($con->query("select * from `category` where id = {$rec['category_id']} limit 1"))['name'];
+                                            echo "$categoryName";
+                                            ?>
+                                        </td>
                                         <td><?= $rec['price']; ?></td>
+                                        <td><?= $rec['qty']; ?></td>
                                         <td><img style="width: 200px;height:200px;object-fit:contain;mix-blend-mode: darken;" src="<?= $rec['image']; ?>"></td>
                                         <td>
                                             <div class='row col-10 mx-auto'>
@@ -96,6 +110,9 @@ include('header.php');
                                                                 <div class="col-lg-8 mx-auto">
                                                                     <input type="text" class="form-control" value="<?= $rec['item_name']; ?>" name="item_name" id="item_name" placeholder="Ex. Italian,Punjabi..." required>
                                                                 </div>
+                                                                <div class="col-lg-8 mx-auto mt-4">
+                                                                    <input type="text" class="form-control" value="<?= $rec['detail']; ?>" name="detail" id="detail" placeholder="Ex. Ingredients.." required>
+                                                                </div>
                                                                 <div class="col-lg-8 mx-auto">
                                                                     <select name="category" class="form-select mt-4 form-select-sm mb-3" aria-label=".form-select-lg example" required>
                                                                         <option disabled selected>Choose One Category</option>
@@ -114,6 +131,9 @@ include('header.php');
                                                                 </div>
                                                                 <div class="col-lg-8 mx-auto">
                                                                     <input type="number" class="form-control" value="<?= $rec['price']; ?>" name="price" id="price" placeholder="Price">
+                                                                </div>
+                                                                <div class="col-lg-8 mx-auto my-4">
+                                                                    <input type="number" class="form-control" value="<?= $rec['qty']; ?>" name="qty" id="qty" placeholder="Qty">
                                                                 </div>
                                                                 <div class="col-lg-8 mx-auto my-4">
                                                                     <input type="file" class="form-control" name="image" id="image">
@@ -146,7 +166,7 @@ include('header.php');
     <?php
         }
     } else {
-        echo "Invalid request made";
+        include('error.php');
     }
     ?>
 </body>

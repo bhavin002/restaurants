@@ -1,6 +1,8 @@
 <?php
-session_start();
-include('./dbconf.php');
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    include('./dbconf.php');
 
 // Delete Category
 if (isset($_GET['delete']) && isset($_GET['id'])) {

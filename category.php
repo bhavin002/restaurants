@@ -108,7 +108,7 @@ include('header.php');
     <?php
         }
     } else {
-        echo "Invalid request made";
+        include('error.php');
     }
     ?>
 </body>
