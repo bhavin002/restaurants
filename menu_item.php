@@ -159,13 +159,12 @@ include('header.php');
 
                 </div>
             </section>
-        <?php
-        } else {
-            header("Location: index.php");
-        }
-        ?>
     <?php
         }
+        else {
+            include('error.php');
+        }
+    
     } else {
         include('error.php');
     }

@@ -103,12 +103,12 @@ include('header.php');
             </section>
         <?php
         } else{
-                header("Location: index.php");
+                header("Location: error.php");
         }
         ?>
     <?php
         }
-    } else {
+     else {
         include('error.php');
     }
     ?>
