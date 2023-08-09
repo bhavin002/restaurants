@@ -2,7 +2,7 @@
     
     $server = 'localhost';
     $username = 'root';
-    $password = '';
+    $password = 'sky@132';
     $db = 'restaurant';
     $con = mysqli_connect($server,$username,$password,$db);
     if(! $con){
