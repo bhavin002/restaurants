@@ -26,7 +26,7 @@ include('header.php');
                 $res = $con->query('select * from `category`;');
                 $index = 1;
                 foreach ($res as $cat) {
-                    if ($index == 1) {
+                    if ($index == 1) {  
                 ?>
                         <li class="nav-item">
                             <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-<?=$cat['name']?>">
