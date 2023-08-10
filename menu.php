@@ -8,6 +8,9 @@ include('header.php');
     <?php
     include('navbar.php');
     include('dbconf.php');
+    if (!isset($_SESSION)) {
+        session_start();
+    }
     ?>
 
     <!-- ======= Menu Section ======= -->
@@ -18,6 +21,9 @@ include('header.php');
                 <h2>Our Menu</h2>
                 <p>Check Our <span>Yummy Menu</span></p>
             </div>
+            <?php
+            include('message.php');
+            ?>
 
             <!-- Adding Category Menu -->
             <ul class="nav nav-tabs d-flex justify-content-center">
@@ -26,17 +32,17 @@ include('header.php');
                 $res = $con->query('select * from `category`;');
                 $index = 1;
                 foreach ($res as $cat) {
-                    if ($index == 1) {  
+                    if ($index == 1) {
                 ?>
                         <li class="nav-item">
-                            <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-<?=$cat['name']?>">
+                            <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#menu-<?= $cat['name'] ?>">
                                 <h4><?= $cat['name']; ?></h4>
                             </a>
                         </li><!-- End tab nav item -->
                     <?php } else {
                     ?>
                         <li class="nav-item">
-                            <a class="nav-link show" data-bs-toggle="tab" data-bs-target="#menu-<?=$cat['name']?>">
+                            <a class="nav-link show" data-bs-toggle="tab" data-bs-target="#menu-<?= $cat['name'] ?>">
                                 <h4><?= $cat['name']; ?></h4>
                             </a>
                         </li><!-- End tab nav item -->
@@ -58,63 +64,63 @@ include('header.php');
                 $res = $con->query('select * from `category`;');
                 $index = 1;
                 foreach ($res as $cat) {
-                if($index==1){
-                    ?>
-                        <div class="tab-pane fade active show" id="menu-<?= $cat['name'] ?>">
-                    <?php
-                }
-                else{
-                    ?>
-                        <div class="tab-pane fade" id="menu-<?= $cat['name'] ?>">
-                    <?php
-                }
+                    if ($index == 1) {
                 ?>
+                        <div class="tab-pane fade active show" id="menu-<?= $cat['name'] ?>">
+                        <?php
+                    } else {
+                        ?>
+                            <div class="tab-pane fade" id="menu-<?= $cat['name'] ?>">
+                            <?php
+                        }
+                            ?>
 
 
-                <div class="tab-header text-center">
-                    <p>Menu</p>
-                    <h3><?= $cat['name'] ?></h3>
-                </div>
+                            <div class="tab-header text-center">
+                                <p>Menu</p>
+                                <h3><?= $cat['name'] ?></h3>
+                            </div>
 
-                <div class="row gy-5">
+                            <div class="row gy-5">
 
-                    <?php
-                    $products = $con->query("select * from `menu_item` where category_id = {$cat['id']};");
-                    // Looping over products
-                    foreach ($products as $product) {
-                    ?>
-                        <div class="col-lg-4 menu-item">
-                            <a href="<?=$product['image']?>" class="glightbox"><img src="<?=$product['image']?>" class="menu-img img-fluid" alt=""></a>
-                            <h4><?=$product['item_name']?></h4>
-                            <p class="ingredients">
-                            <?=$product['detail']?>
-                            </p>
-                            <form action="cart.php" method="post">
-                                <input type="text" value="<?=$_SESSION['id']?>" hidden name="user_id">
-                                <input type="text" value="<?=$product['id']?>" hidden name="product_id">
-                                <input type="submit" name="add_to_cart" value="Add To Cart">
-                            </form>
-                            <p class="price">
-                                Rs. <?=$product['price']?>
-                            </p>
-                        </div><!-- Menu Item -->
-                    <?php
+                                <?php
+                                $products = $con->query("select * from `menu_item` where category_id = {$cat['id']};");
+                                // Looping over products    
+                                foreach ($products as $product) {
+                                ?>
+                                    <div class="col-lg-4 menu-item">
+                                        <a href="<?= $product['image'] ?>" class="glightbox"><img src="<?= $product['image'] ?>" class="menu-img img-fluid" alt=""></a>
+                                        <h4><?= $product['item_name'] ?></h4>
+                                        <p class="ingredients">
+                                            <?= $product['detail'] ?>
+                                        </p>
+                                        <form action="cart_data.php" method="post">
+                                            <input type="text" value="<?= $product['id'] ?>" hidden name="product_id">
+                                            <input type="text" value="<?= $_SESSION['id'] ?>" hidden name="user_id">
+                                            <input type="text" value="<?= $product['price'] ?>" hidden name="product_price">
+                                            <input class="btn btn-danger" type="submit" name="add_to_cart" value="Add To Cart">
+                                        </form>
+                                        <p class="price">
+                                            Rs. <?= $product['price'] ?>
+                                        </p>
+                                    </div><!-- Menu Item -->
+                                <?php
+                                }
+                                ?>
+                            </div>
+                            </div><!-- End <?= $cat['name'] ?> Menu Content -->
+
+                        <?php
+                        $index = $index + 1;
                     }
-                    ?>
-                </div>
-            </div><!-- End <?= $cat['name'] ?> Menu Content -->
-
-            <?php
-            $index = $index + 1;
-                }
-            ?>
+                        ?>
 
 
 
+
+                        </div>
 
             </div>
-
-        </div>
     </section><!-- End Menu Section -->
 </body>
 
