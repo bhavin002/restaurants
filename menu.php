@@ -89,6 +89,11 @@ include('header.php');
                             <p class="ingredients">
                             <?=$product['detail']?>
                             </p>
+                            <form action="cart.php" method="post">
+                                <input type="text" value="<?=$_SESSION['id']?>" hidden name="user_id">
+                                <input type="text" value="<?=$product['id']?>" hidden name="product_id">
+                                <input type="submit" name="add_to_cart" value="Add To Cart">
+                            </form>
                             <p class="price">
                                 Rs. <?=$product['price']?>
                             </p>
