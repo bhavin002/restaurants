@@ -12,11 +12,24 @@
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="menu.php">Menu</a></li>
-                <li><a href="cart.php">Cart</a></li>
                 <?php
-                if (!isset($_SESSION)) {
-                    session_start();
-                }
+                    
+                    if (!isset($_SESSION)) {
+                        session_start();
+                    }
+                    if(isset($_SESSION['id'])){
+                        ?>
+                        <li><a href="cart.php">Cart</a></li>
+                        <?php
+                    }
+                    else{
+                    ?>    
+                        <li><a href="login.php">Cart</a></li>
+                        <?php
+                    }
+
+                ?>
+                <?php
                 if (isset($_SESSION['is_admin'])) {
                     if ($_SESSION['is_admin'] == '1') {
                 ?>

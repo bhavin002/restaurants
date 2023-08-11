@@ -2,7 +2,7 @@
     if (!isset($_SESSION)) {
         session_start();
     }
-    include('./dbconf.php');
+    include('dbconf.php');
 
 // Delete Category
 if (isset($_GET['delete']) && isset($_GET['id'])) {
@@ -94,6 +94,7 @@ if (isset($_POST['name']) && isset($_FILES['image'])) {
 
     // For uploading image of category.
     $uploadTargetDir = $_SERVER['DOCUMENT_ROOT'] . "/restaurants/uploads/category/";
+    //C:\xampp\htdocs\restaurants\uploads\category
     $dbTargetDirPath = "/restaurants/uploads/category/";
     $uploadedFileName = basename($_FILES["image"]["name"]);
 
