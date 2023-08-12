@@ -32,7 +32,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             header("Location: login.php? error=$msg");
         }
     } else {
-        echo "User not found";
+        $msg = "User Not Founded";
+        header("Location: login.php? error=$msg");
     }
 
     $con->close();
