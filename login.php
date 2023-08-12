@@ -8,11 +8,21 @@ include('header.php');
     <?php
     include('navbar.php');
     ?>
-
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <section id="book-a-table" class="book-a-table">
         <div class="container">
             <div class="section-header">
                 <p>Login</p>
+            </div>
+            <div>
+                <?php if(isset($_GET['error'])) { 
+                    $msg = $_GET['error'];
+                ?>
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <?php echo "$msg"?>
+                    </div>
+                <?php }?>
             </div>
             <div class="row g-0">
                 <div class="col-lg-4 reservation-img" style="background-image: url(assets/img/reservation.jpg);"></div>
