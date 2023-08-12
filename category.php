@@ -34,7 +34,7 @@ include('header.php');
                         </div>
                     </div>
                     <div class="row mt-5">
-                        <div class="col-10 mx-auto">
+                        <div class="col-10 mx-auto table-responsive">
                             <table class="table table-hover">
                                 <tr>
                                     <th>ID</th>
@@ -54,9 +54,7 @@ include('header.php');
                                             <div class='row col-10 mx-auto'>
                                                 <div class='col-3 mx-auto'>
                                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#openUpdateModal<?= $rec['id']; ?>">Update</button>
-                                                </div>
-                                                <div class='col-3 mx-auto'>
-                                                    <a href="category_data.php?delete=true&id=<?= $rec['id'] ?>" class='btn btn-danger'>Delete</a>
+                                                    <a href="category_data.php?delete=true&id=<?= $rec['id'] ?>" class='btn btn-danger mt-3'>Delete</a>
                                                 </div>
                                             </div>
                                         </td>
