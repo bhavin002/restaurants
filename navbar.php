@@ -1,4 +1,10 @@
 <!-- ======= Header ======= -->
+<?php
+include('dbconf.php');
+if (!isset($_SESSION)) {
+    session_start();
+}
+?>
 <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
@@ -13,22 +19,33 @@
                 <li><a href="index.php">Home</a></li>
                 <li><a href="menu.php">Menu</a></li>
                 <?php
-                    
-                    if (!isset($_SESSION)) {
-                        session_start();
-                    }
-                    if(isset($_SESSION['id'])){
-                        ?>
-                        <li><a href="cart.php">Cart</a></li>
-                        <?php
-                    }
-                    else{
-                    ?>    
-                        <li><a href="login.php">Cart</a></li>
-                        <?php
-                    }
-
+                if (isset($_SESSION['id'])) {
                 ?>
+                    <li><a href="cart.php">Cart</a></li>
+                <?php
+                } else {
+                ?>
+                    <li><a href="login.php">Cart</a></li>
+                <?php
+                }
+                ?>
+
+                <?php
+                if (!isset($_SESSION)) {
+                    session_start();
+                }
+                if (isset($_SESSION['id'])) {
+                    $customer_id = $_SESSION['id'];
+                    $query = "select * from customer_order where customer_id = '$customer_id' and process_status = 'Proccess'";
+                    $res = $con->query($query);
+                    if ($res->num_rows > 0) {
+                ?>
+                        <li><a href="menu.php">Orders</a></li>
+                <?php
+                    }
+                }
+                ?>
+
                 <?php
                 if (isset($_SESSION['is_admin'])) {
                     if ($_SESSION['is_admin'] == '1') {
