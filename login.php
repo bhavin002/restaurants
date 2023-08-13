@@ -15,14 +15,17 @@ include('header.php');
                 <p>Login</p>
             </div>
             <div>
-                <?php if(isset($_GET['error'])) { 
+                <?php
+                    include('message.php');
+                ?>
+                <!-- <?php if(isset($_GET['error'])) { 
                     $msg = $_GET['error'];
                 ?>
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         <?php echo "$msg"?>
                     </div>
-                <?php }?>
+                <?php }?> -->
             </div>
             <div class="row g-0">
                 <div class="col-lg-4 reservation-img" style="background-image: url(assets/img/reservation.jpg);"></div>
@@ -42,8 +45,9 @@ include('header.php');
                                 <div class="error-message"></div>
                                 <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!</div>
                             </div>
-                            <div><button class="btn btn-danger" type="submit">Login</button>&nbsp;&nbsp;&nbsp;
-                                <button class="btn btn-danger" type="button"><a href="signup.php" style="color:aliceblue;">Signup
+                            <div>
+                                <button class="btn btn-danger mt-2" type="submit">Login</button>&nbsp;&nbsp;&nbsp;
+                                <button class="btn btn-danger mt-2" type="button"><a href="signup.php" style="color:aliceblue;">Signup
                                     </a></button>
                             </div>
                             <!-- <button class="btn btn-danger" type="submit"><a href="signup.php" style="color:aliceblue;font-weight: bold;">signup</a></button> -->
