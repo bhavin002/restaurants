@@ -46,24 +46,29 @@ include('header.php');
                 }
                 ?>
             </div>
-            <div class="row">
-                <div class="col-12 mt-4" style="border-radius: 9px;">
-                    <?php
-                    $query = "SELECT SUM(sub_total) AS TotalAmount FROM customer_order where customer_id = '$customer_id' and process_status = 'Draft'";
-                    $res = $con->query($query);
-                    foreach ($res as $rec) {
-                    ?>
-                        <p class="title mx-5 float-end" style="font-size: 30px;">Total : <?= $rec['TotalAmount'] ?></p>
+            <?php
+            $query = "SELECT * from customer_order where customer_id = '$customer_id' and process_status = 'Draft'";
+            $result = $con->query($query);
+            if ($result->num_rows > 0) {
+            ?>
+                <div class="row">
+                    <div class="col-12 mt-4" style="border-radius: 9px;">
+                        <?php
+                        $query = "SELECT SUM(sub_total) AS TotalAmount FROM customer_order where customer_id = '$customer_id' and process_status = 'Draft'";
+                        $res = $con->query($query);
+                        foreach ($res as $rec) {
+                        ?>
+                            <p class="title mx-5 float-end" style="font-size: 30px;">Total : <?= $rec['TotalAmount'] ?></p>
 
+                    </div>
                 </div>
-            </div>
-            <form action="checkout.php" method="post">
-                <input type="hidden" name='userId' value="<?= $customer_id ?>">
-                <input type="hidden" name='totalAmt' value="<?= $rec["TotalAmount"]; ?>">
-                <input class="btn btn-danger mx-4  float-end" type="submit" name="process_to_checkout" value="Process To Checkout">
-            </form>
+                <form action="checkout.php" method="post">
+                    <input type="hidden" name='customer_id' value="<?= $customer_id ?>">
+                    <input class="btn btn-danger mx-4  float-end" type="submit" name="process__to_checkout" value="Process To Checkout">
+                </form>
         </div>
-    <?php } ?>
+<?php }
+                    } ?>
     </section>
 </body>
 

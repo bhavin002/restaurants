@@ -54,6 +54,7 @@ if (!isset($_SESSION)) {
                             <ul>
                                 <li><a href="category.php">Category</a></li>
                                 <li><a href="menu_item.php">Menu_item</a></li>
+                                <li><a href="order_items.php">Order</a></li>
                             </ul>
                         </li>
                 <?php

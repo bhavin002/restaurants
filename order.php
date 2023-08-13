@@ -15,6 +15,9 @@ include('header.php');
             <div class="section-header">
                 <p>Orders</p>
             </div>
+            <div class="section-header">
+                <p>Please Wait few minutes for confirm order by admin...!</p>
+            </div>
         </div>
     </section>
 </body>
