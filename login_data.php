@@ -28,12 +28,12 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             header("Location: index.php");
             exit;
         } else {
-            $msg = "Invalid user id and password";
-            header("Location: login.php? error=$msg");
+            $_SESSION['message'] = "Invalid user id and password";
+            header("Location: login.php");
         }
     } else {
-        $msg = "User Not Founded";
-        header("Location: login.php? error=$msg");
+        $_SESSION['message'] = "User Not Founded";
+        header("Location: login.php");
     }
 
     $con->close();
