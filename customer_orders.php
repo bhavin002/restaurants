@@ -14,6 +14,18 @@ include('header.php');
         exit();
     }
 
+    if ($_SESSION['is_admin'] != '1') {
+        include('error.php');
+        exit();
+    }
+
+    $requested_url = 'all';
+    if(isset($_GET['status'])){
+        if( $_GET['status'] == 'process' || $_GET['status'] == 'done' || $_GET['status'] == 'reject' ){
+            $requested_url = $_GET['status'];
+        }
+    }
+
     ?>
     <section id="book-a-table" class="book-a-table">
         <div class="container">
@@ -21,13 +33,11 @@ include('header.php');
                 <p>Orders</p>
                 <div class="row mt-5">
                     <div class="col-10 mx-auto table-responsive">
-
-
-
                         <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
+                                    <th>Customer ID</th>
                                     <th>Order Date</th>
                                     <th>Status</th>
                                     <th>Order Value</th>
@@ -36,11 +46,30 @@ include('header.php');
                             </thead>
                             <?php
 
-                            $customer_id = $_SESSION['id'];
+                            // $customer_id = $_SESSION['id'];
+                            if($requested_url == 'reject'){
+                                $order_query = "SELECT CO.*,sum(subtotal) AS order_value FROM CUSTOMER_ORDER AS CO
+                                        LEFT JOIN CART AS CT ON CT.ORDER_ID = CO.ID
+                                        WHERE CO.STATUS = '$requested_url' group by CO.id ;";
+                            }
 
-                            $order_query = "SELECT CO.*,sum(subtotal) AS order_value FROM CUSTOMER_ORDER AS CO
-                                    LEFT JOIN CART AS CT ON CT.ORDER_ID = CO.ID
-                                    where CO.customer_id = $customer_id group by CO.id;";
+                            elseif($requested_url == 'process'){
+                                $order_query = "SELECT CO.*,sum(subtotal) AS order_value FROM CUSTOMER_ORDER AS CO
+                                        LEFT JOIN CART AS CT ON CT.ORDER_ID = CO.ID
+                                        WHERE CO.STATUS = '$requested_url' group by CO.id ;";
+                            }
+
+                            elseif($requested_url == 'done'){
+                                $order_query = "SELECT CO.*,sum(subtotal) AS order_value FROM CUSTOMER_ORDER AS CO
+                                        LEFT JOIN CART AS CT ON CT.ORDER_ID = CO.ID
+                                        WHERE CO.STATUS = '$requested_url' group by CO.id ;";
+                            }
+                            
+                            else{
+                                $order_query = "SELECT CO.*,sum(subtotal) AS order_value FROM CUSTOMER_ORDER AS CO
+                                        LEFT JOIN CART AS CT ON CT.ORDER_ID = CO.ID
+                                        group by CO.id;";
+                            }
 
                             $res = $con->query($order_query);
 
@@ -48,6 +77,7 @@ include('header.php');
                             ?>
                                 <tr>
                                     <td><?= $rec['id']; ?></td>
+                                    <td><?= $rec['customer_id']; ?></td>
                                     <td><?= $rec['date']; ?></td>
                                     <td><?= $rec['status']; ?></td>
                                     <td><?= $rec['order_value']; ?></td>
@@ -94,12 +124,27 @@ include('header.php');
                                                                     <?php
                                                                     }
                                                                     ?>
+                                                                    <tr class="table-info">
+                                                                        <td colspan="4" class="text-end">Total</td>
+                                                                        <td><?= $rec['order_value']; ?></td>
+                                                                    </tr>
                                                                 </table>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <form action="confirm_order.php" method="post">
+                                                            <input type="hidden" name='order_id' value="<?= $rec["id"]; ?>">
+                                                            <input type="hidden" name='request_url' value="<?= $requested_url ?>">
+                                                            <?php
+                                                                if($rec["status"]=='process'){
+                                                                    ?>
+                                                                    <input class="btn btn-success px-2" type="submit" data-bs-dismiss="modal" name="confirm_order" value="Confirm">
+                                                                    <input class="btn btn-danger px-2" type="submit" data-bs-dismiss="modal" name="reject_order" value="Reject">
+                                                                    <?php
+                                                                }
+                                                            ?>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>

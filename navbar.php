@@ -55,7 +55,14 @@ if (!isset($_SESSION)) {
                             <ul>
                                 <li><a href="category.php">Category</a></li>
                                 <li><a href="menu_item.php">Menu_item</a></li>
-                                <li><a href="order_items.php">Order</a></li>
+                                <li class="dropdown"><a href="customer_orders.php"><span>Orders</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                                    <ul>
+                                        <li><a href="customer_orders.php?status=process">To Process</a></li>
+                                        <li><a href="customer_orders.php?status=done">Done</a></li>
+                                        <li><a href="customer_orders.php?status=reject">Rejected</a></li>
+                                        <li><a href="customer_orders.php">All</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                 <?php

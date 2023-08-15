@@ -89,7 +89,7 @@ include('header.php');
         // If no cart item is there then we will show message
         else{
         ?>
-            <h3 class="text-center text-mute">🍔🛒 Hungry for more? Your cart's feeling a bit light! 🛒🍔</h3>
+            <h3 class="text-center text-muted">🍔🛒 Hungry for more? Your cart's feeling a bit light! 🛒🍔</h3>
         <?php
         }
     ?>
