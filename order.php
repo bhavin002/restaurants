@@ -118,6 +118,9 @@ include('header.php');
                     </div>
                 </div>
             </div>
+            <div class="section-header">
+                <p>Please Wait few minutes for confirm order by admin...!</p>
+            </div>
         </div>
     </section>
 </body>
