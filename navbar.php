@@ -22,6 +22,7 @@ if (!isset($_SESSION)) {
                 if (isset($_SESSION['id'])) {
                 ?>
                     <li><a href="cart.php">Cart</a></li>
+                    <li><a href="order.php">Order</a></li>
                 <?php
                 } else {
                 ?>
@@ -30,7 +31,7 @@ if (!isset($_SESSION)) {
                 }
                 ?>
 
-                <?php
+                <!-- <?php
                 if (!isset($_SESSION)) {
                     session_start();
                 }
@@ -44,7 +45,7 @@ if (!isset($_SESSION)) {
                 <?php
                     }
                 }
-                ?>
+                ?> -->
 
                 <?php
                 if (isset($_SESSION['is_admin'])) {
