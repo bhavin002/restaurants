@@ -31,22 +31,6 @@ if (!isset($_SESSION)) {
                 }
                 ?>
 
-                <!-- <?php
-                if (!isset($_SESSION)) {
-                    session_start();
-                }
-                if (isset($_SESSION['id'])) {
-                    $customer_id = $_SESSION['id'];
-                    $query = "select * from customer_order where customer_id = '$customer_id' and process_status = 'Proccess'";
-                    $res = $con->query($query);
-                    if ($res->num_rows > 0) {
-                ?>
-                        <li><a href="menu.php">Orders</a></li>
-                <?php
-                    }
-                }
-                ?> -->
-
                 <?php
                 if (isset($_SESSION['is_admin'])) {
                     if ($_SESSION['is_admin'] == '1') {

@@ -3,8 +3,8 @@ include('dbconf.php');
 if (!isset($_SESSION)) {
     session_start();
 }
-if (isset($_POST['add_To_Cart'])) {
-    
+if (isset($_POST['add_To_Cart']) || isset($_POST['add_To_Cart_From_Menu'])) {
+
     $cart_id = $_POST['cart_id'];
     $price = $_POST['price'];
 
@@ -12,24 +12,34 @@ if (isset($_POST['add_To_Cart'])) {
         LEFT JOIN CART AS CT ON CT.MENU_ITEM_ID = MI.ID
         WHERE CT.ID = $cart_id LIMIT 1;
     ";
-    
+
     $product = $con->query($product_query);
     $product_qty = $product->fetch_assoc();
-    if($product_qty['CART_QTY']>=$product_qty['PRODUCT_QTY']){
+    if ($product_qty['CART_QTY'] >= $product_qty['PRODUCT_QTY']) {
+        // if (isset($_POST['add_To_Cart'])) {
+        //     $_SESSION['message'] = 'Product qty is not available';
+        //     header("Location: cart.php");
+        // } else {
+        //     $_SESSION['message'] = 'Product qty is not available';
+        //     header("Location: menu.php");
+        // }
         $_SESSION['message'] = 'Product qty is not available';
         header("Location: cart.php");
         exit();
     }
     $addToCart = "UPDATE cart set qty = qty + 1,subtotal = subtotal +$price where id = $cart_id";
 
-    if ($con->query($addToCart)) {
+    if ($con->query($addToCart) && isset($_POST['add_To_Cart'])) {
         header("Location: cart.php");
         $_SESSION['message'] = 'Cart Added Successfully';
-        exit();
+        // exit();
+    } else {
+        header("Location: menu.php");
+        $_SESSION['message'] = 'Cart Added Successfully';
     }
 }
 
-if (isset($_POST['remove_To_Cart'])) {
+if (isset($_POST['remove_To_Cart']) || isset($_POST['remove_To_Cart_From_Menu'])) {
 
     $cart_id = $_POST['cart_id'];
     $price = $_POST['price'];
@@ -41,29 +51,32 @@ if (isset($_POST['remove_To_Cart'])) {
     if ($qty == 1) {
 
         $deleteToCart = "DELETE from cart where id = $cart_id";
-       
-        if ($con->query($deleteToCart)) {
+
+        if ($con->query($deleteToCart) && isset($_POST['remove_To_Cart'])) {
             header("Location: cart.php");
             $_SESSION['message'] = 'Cart Removed Successfully';
-            exit();
+            // exit();
+        } else {
+            header("Location: menu.php");
+            $_SESSION['message'] = 'Cart Removed Successfully';
         }
-
     } else {
-       
+
         $removeToCart = "UPDATE cart set qty = qty - 1,
         subtotal = subtotal - $price
         where id = $cart_id";
-       
-        if ($con->query($removeToCart)) {
-       
+
+        if ($con->query($removeToCart) && isset($_POST['remove_To_Cart'])) {
+
             header("Location: cart.php");
             $_SESSION['message'] = 'Cart Updated Successfully';
-            exit();
+            // exit();
+        } else {
+            header("Location: menu.php");
+            $_SESSION['message'] = 'Cart Updated Successfully';
         }
         exit();
     }
-} 
-
-else {
+} else {
     echo "Invalid Request";
 }

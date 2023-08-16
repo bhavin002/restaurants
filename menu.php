@@ -51,10 +51,7 @@ include('header.php');
                     $index = $index + 1;
                 }
                 ?>
-
-
             </ul>
-
 
             <!-- Adding Product by category-wise -->
             <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
@@ -95,16 +92,34 @@ include('header.php');
                                             <?= $product['detail'] ?>
                                         </p>
                                         <?php
-                                            if(isset($_SESSION['id'])){
-                                                ?>
+                                        if (isset($_SESSION['id'])) {
+                                            $customer_id = $_SESSION["id"];
+                                            $product_id = $product['id'];
+                                            $query = "select * from cart where customer_id = '$customer_id' and menu_item_id = '$product_id' and status = 'draft' ";
+                                            $result = $con->query($query);
+                                            if ($result->num_rows > 0) {
+                                                $row = $result->fetch_assoc();
+                                        ?>
+                                                <form action="handleCart.php" method="post">
+                                                    <input type="hidden" name='cart_id' value="<?= $row['id'] ?>">
+                                                    <input type="hidden" name='price' value="<?= $row['price'] ?>">
+                                                    <input class="btn btn-primary px-4" style="font-size: 20px;" type="submit" name="add_To_Cart_From_Menu" value="+">
+                                                    <span class="lead px-3"><?= $row['qty'] ?></span>
+                                                    <input class="btn btn-danger px-4" style="font-size: 20px;" type="submit" name="remove_To_Cart_From_Menu" value="-">
+                                                </form>
+                                            <?php
+                                            } else {
+                                            ?>
                                                 <form action="cart_data.php" method="post">
-                                                    <input type="text" value="<?= $product['id'] ?>" hidden name="product_id">
+                                                    <input type="text" value="<?= $product_id ?>" hidden name="product_id">
                                                     <input type="text" value="<?= $_SESSION['id'] ?>" hidden name="user_id">
                                                     <input type="text" value="<?= $product['price'] ?>" hidden name="product_price">
                                                     <input class="btn btn-danger" type="submit" name="add_to_cart" value="Add To Cart">
                                                 </form>
-                                            <?php
+
+                                        <?php
                                             }
+                                        }
                                         ?>
                                         <p class="price">
                                             Rs. <?= $product['price'] ?>
@@ -120,10 +135,6 @@ include('header.php');
                         $index = $index + 1;
                     }
                         ?>
-
-
-
-
                         </div>
 
             </div>

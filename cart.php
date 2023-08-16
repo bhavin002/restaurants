@@ -34,12 +34,10 @@ include('header.php');
                     ";
 
                 $res = $con->query($query);
-                
+
                 // checking if current user has any thing in cart.
                 
                 if($res->num_rows > 0){
-
-
                     foreach ($res as $rec) {
                     ?>
                         <div class="col-md-4 mt-3 d-flex justify-content-center">
