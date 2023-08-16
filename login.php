@@ -18,14 +18,6 @@ include('header.php');
                 <?php
                     include('message.php');
                 ?>
-                <!-- <?php if(isset($_GET['error'])) { 
-                    $msg = $_GET['error'];
-                ?>
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        <?php echo "$msg"?>
-                    </div>
-                <?php }?> -->
             </div>
             <div class="row g-0">
                 <div class="col-lg-4 reservation-img" style="background-image: url(assets/img/reservation.jpg);"></div>
