@@ -12,6 +12,18 @@ if (isset($_POST['add_to_cart'])) {
     $result = $con->query($fetchQty);
     print_r($result);
     if ($result->num_rows == 0) {
+
+        $product_query = "SELECT QTY FROM MENU_ITEM WHERE ID = $menu_item_id;";
+
+        $product = $con->query($product_query);
+        $product_qty = $product->fetch_assoc();
+        
+        if($product_qty['QTY']==0){
+            header("Location: menu.php");
+            $_SESSION['message'] = 'Product qty is not available';
+            exit();
+        }
+
         $Insertquery = "INSERT into cart(customer_id,menu_item_id,qty,price,subtotal,status) VALUES
             ($customer_id,$menu_item_id,1,$price,$price,'draft')";
 

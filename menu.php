@@ -114,7 +114,18 @@ include('header.php');
                                                     <input type="text" value="<?= $product_id ?>" hidden name="product_id">
                                                     <input type="text" value="<?= $_SESSION['id'] ?>" hidden name="user_id">
                                                     <input type="text" value="<?= $product['price'] ?>" hidden name="product_price">
-                                                    <input class="btn btn-danger" type="submit" name="add_to_cart" value="Add To Cart">
+                                                    <?php 
+                                                        if($product['qty']>1){
+                                                            ?>
+                                                            <input class="btn btn-danger" type="submit" name="add_to_cart" value="Add To Cart">
+                                                        <?php
+                                                        }
+                                                        else{
+                                                            ?>
+                                                            <span class="text-danger h5">Out of Stock.</span>
+                                                        <?php
+                                                        }
+                                                        ?>
                                                 </form>
 
                                         <?php

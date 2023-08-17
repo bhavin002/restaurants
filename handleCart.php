@@ -24,7 +24,7 @@ if (isset($_POST['add_To_Cart']) || isset($_POST['add_To_Cart_From_Menu'])) {
         //     header("Location: menu.php");
         // }
         $_SESSION['message'] = 'Product qty is not available';
-        header("Location: cart.php");
+        header("Location: menu.php");
         exit();
     }
     $addToCart = "UPDATE cart set qty = qty + 1,subtotal = subtotal +$price where id = $cart_id";
