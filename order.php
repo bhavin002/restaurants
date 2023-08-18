@@ -32,6 +32,7 @@ include('header.php');
                                     <th>Status</th>
                                     <th>Order Value</th>
                                     <th class='text-center'>Action</th>
+                                    <th class='text-center'>Download Bill</th>
                                 </tr>
                             </thead>
                             <?php
@@ -40,7 +41,7 @@ include('header.php');
 
                             $order_query = "SELECT CO.*,sum(subtotal) AS order_value FROM CUSTOMER_ORDER AS CO
                                     LEFT JOIN CART AS CT ON CT.ORDER_ID = CO.ID
-                                    where CO.customer_id = $customer_id group by CO.id;";
+                                    where CO.customer_id = $customer_id group by CO.id ORDER BY DATE DESC;";
 
                             $res = $con->query($order_query);
 
@@ -105,6 +106,24 @@ include('header.php');
                                             </div>
                                         </div>
                                     </td>
+                                    <td><form method="post" action="pdf_gen.php">
+                                        <?php 
+                                            $query = "SELECT fname,lname,phone_number,email from customer where id='$_SESSION[id]'";
+                                            $res = $con->query($query);
+                                            
+                                            foreach ($res as $rec) {
+                                                $fname = $rec['fname'];
+                                                $lname = $rec['lname'];
+                                                $email = $rec['email'];
+                                                $phone_number =  $rec['phone_number'];
+                                            }
+                                            ?>
+                                    <input type="hidden" name="fname" value="<?php echo $fname ?>"/>
+                                    <input type="hidden" name="lname" value="<?php echo $lname ?>"/>
+                                    <input type="hidden" name="email" value="<?php echo $email ?>"/>
+                                    <input type="hidden" name="phone_number" value="<?php echo $phone_number ?>"/>
+                                    <input type="submit" name="pdfgen" class="btn btn-primary" value="Download"/>
+                                    </form></td>
                                 </tr>
                             <?php
                             }

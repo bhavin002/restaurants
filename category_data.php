@@ -124,6 +124,7 @@ if (isset($_POST['name']) && isset($_FILES['image'])) {
     }
     $_SESSION['message'] = $statusMsg;
     header("Location: category.php");
+    exit();
 }
 
 echo "Invalid request made.";
