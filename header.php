@@ -6,7 +6,7 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Foodie</title>
-  <link rel="icon" type="image/x-icon" href="https://img.icons8.com/fluency/48/restaurant.png">
+  <link rel="icon" type="image/x-icon" href="assets/img/logo.png">
 
   <meta content="" name="description">
   <meta content="" name="keywords">

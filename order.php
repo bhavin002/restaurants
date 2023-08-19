@@ -106,24 +106,14 @@ include('header.php');
                                             </div>
                                         </div>
                                     </td>
-                                    <td><form method="post" action="pdf_gen.php">
-                                        <?php 
-                                            $query = "SELECT fname,lname,phone_number,email from customer where id='$_SESSION[id]'";
-                                            $res = $con->query($query);
-                                            
-                                            foreach ($res as $rec) {
-                                                $fname = $rec['fname'];
-                                                $lname = $rec['lname'];
-                                                $email = $rec['email'];
-                                                $phone_number =  $rec['phone_number'];
-                                            }
-                                            ?>
-                                    <input type="hidden" name="fname" value="<?php echo $fname ?>"/>
-                                    <input type="hidden" name="lname" value="<?php echo $lname ?>"/>
-                                    <input type="hidden" name="email" value="<?php echo $email ?>"/>
-                                    <input type="hidden" name="phone_number" value="<?php echo $phone_number ?>"/>
-                                    <input type="submit" name="pdfgen" class="btn btn-primary" value="Download"/>
-                                    </form></td>
+                                    <td>
+                                        <!-- <form method="post" action="order_bill_pdf.php">
+                                            <input type="hidden" name="user_id" value="<?= $rec['customer_id'] ?>"/>
+                                            <input type="hidden" name="order_id" value="<?= $rec['id'] ?>"/>
+                                            <input type="submit" name="pdfgen" class="btn btn-primary" value="Download"/>
+                                        </form> -->
+                                        <a href="order_bill_pdf.php?user_id=<?= $rec['customer_id']?>&order_id=<?= $rec['id']?>" download>Download</a>
+                                    </td>
                                 </tr>
                             <?php
                             }

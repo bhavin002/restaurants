@@ -46,48 +46,56 @@ $pdf->SetFont('dejavusans', '', 14, '', true);
 // This method has several options, check the source code documentation for more information.
 $pdf->AddPage();
 
-$name = $_POST['fname'];
-$lname = $_POST['lname'];
-$mno = $_POST['phone_number'];
-$email = $_POST['email'];
 
-// Set some content to print
-$html = <<<EOD
+
+$user_id = $_GET['user_id'];
+$order_id = $_GET['order_id'];
+$query = "SELECT fname,lname,phone_number,email from customer where id=$user_id";
+$res = $con->query($query)->fetch_assoc();
+$name = $res['fname'];
+$lname = $res['lname'];
+$mno = $res['phone_number'];
+$email = $res['email'];
+
+$order_items_str = "";
+$order_items_query = "SELECT CT.*,item_name FROM CART AS CT
+                        LEFT JOIN MENU_ITEM AS MI ON MI.ID = CT.MENU_ITEM_ID
+                        WHERE CT.ORDER_ID = $order_id ;";
+$order_items = $con->query($order_items_query);
+foreach ($order_items as $order_item) {
+
+    $itemName = $order_item['item_name'];
+    $orderQty = $order_item['qty'];
+    $orderPrice = $order_item['price'];
+    $orderSubtotal = $order_item['subtotal'];
+
+    $order_items_str = $order_items_str."<tr>
+        <td>$itemName</td>
+        <td>$orderQty</td>
+        <td>$orderPrice</td>
+        <td>$orderSubtotal</td>
+    </tr>";
+
+}
+
+$html = '
 <h1 style="text-align:center;"><u>Bill Details</u></h1>
-<label style="font-weight:bold;">Customer Name : - $name $lname</label><br><br>
-<label style="font-weight:bold;">Customer Moblie Number : - $mno</label><br><br>
-<label style="font-weight:bold;">Customer Email : - $email</label><br><br>
+<label style="font-weight:bold;">Customer Name : - '.$name .' '.$lname .'</label><br><br>
+<label style="font-weight:bold;">Customer Moblie Number : - '.$mno.'</label><br><br>
+<label style="font-weight:bold;">Customer Email : - '.$email.'</label><br><br>
 <table cellspacing="0" cellpadding="1" border="1" style="border-color:gray;">
+    
     <tr style="background-color:green;color:white;">
-        <td>SL no</td>
-        <td>Name</td>
-        <td>Roll No</td>
-		<td>City</td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>Divyasundar</td>
-		<td>001</td>
-		<td>Pune</td>
-    </tr>
-	<tr>
-        <td>1</td>
-        <td>Milan</td>
-		<td>002</td>
-		<td>Pune</td>
-    </tr>
-	<tr>
-        <td>1</td>
-        <td>Hritika</td>
-		<td>003</td>
-		<td>Pune</td>
-    </tr>
-</table>
-EOD;
+        <td>Item Name</td>
+        <td>Qty</td>
+        <td>Price</td>
+		<td>Sub Total</td>
+    </tr>'.$order_items_str.'
+</table>';
 
 // Print text using writeHTMLCell()
-$pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
-
+// $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+$pdf->writeHTML($html, true, false, true, false, '');
 ob_end_flush();
-$pdf->Output('helo_world.pdf', 'I');
+$pdf->Output("INVOICE-$order_id.pdf", 'I');
 ?>
