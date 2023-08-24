@@ -1657,3 +1657,8 @@ section {
 .footer .credits a {
   color: #fff;
 }
+
+/* header css */
+.hoveredImg:hover{
+  transform: scale(1.25);
+}
