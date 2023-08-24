@@ -62,13 +62,14 @@ $order_items_query = "SELECT CT.*,item_name FROM CART AS CT
                         LEFT JOIN MENU_ITEM AS MI ON MI.ID = CT.MENU_ITEM_ID
                         WHERE CT.ORDER_ID = $order_id ;";
 $order_items = $con->query($order_items_query);
+$xtotal = 0;
 foreach ($order_items as $order_item) {
 
     $itemName = $order_item['item_name'];
     $orderQty = $order_item['qty'];
     $orderPrice = $order_item['price'];
     $orderSubtotal = $order_item['subtotal'];
-
+    $xtotal = $xtotal + $orderSubtotal;
     $order_items_str = $order_items_str."<tr>
         <td>$itemName</td>
         <td>$orderQty</td>
@@ -91,7 +92,7 @@ $html = '
         <td>Price</td>
 		<td>Sub Total</td>
     </tr>'.$order_items_str.'
-</table>';
+</table><br><b><center><p>Total Amount : - '.$xtotal.'</center></b></p>';
 
 // Print text using writeHTMLCell()
 // $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
