@@ -108,25 +108,29 @@ include('header.php');
                                         </div>
                                     </td>
                                     <td>
-                                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal1">Add</button>
-                                        <div class="modal" id="myModal1">
+                                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal<?= $rec['id']; ?>">Add</button>
+                                        <div class="modal" id="myModal<?= $rec['id']; ?>">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
 
                                                     <!-- Modal Header -->
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Adding Address After Download Your Bill</h4>
+                                                    <div class="modal-header" style="background-color:aquamarine;">
+                                                        <h4 class="modal-title"><b>Adding Address After Download Your Bill</b></h4>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                     </div>
 
                                                     <!-- Modal body -->
-                                                    <div class="modal-body">
-                                                        <form action="">
-                                                            <div class="mb-3 mt-3">
-                                                                <label for="address">Enter Address:</label>
+                                                    <div class="modal-body bg-primary">
+                                                        <form class="">
+                                                            <div class="mb-3 mt-3 form-group">
+                                                                <label class="text-light">Order Id : -</label>
+                                                                <input type="text" class="form-control" value="<?= $rec['id']; ?>" id="oid1" disabled/>
+                                                            </div>
+                                                            <div class="mb-3 mt-3 form-group">
+                                                                <label for="address" class="text-light">Enter Address:</label>
                                                                 <input type="text" class="form-control" id="address" placeholder="Address" name="address">
                                                             </div>
-                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                            <button type="button" class="btn btn-warning" id="addresssubmit">Submit</button>
                                                         </form>
                                                     </div>
                                                     <!-- Modal footer -->
@@ -157,3 +161,32 @@ include('header.php');
 <?php
 include('footer_javascript.php');
 ?>
+
+<script>
+
+    $(document).ready(()=>{
+        $("#addresssubmit").click(()=>{
+            var x1 = $("#oid1").val();
+            var x2 = $("#address").val();
+            
+            if(x1 === "" || x2 ==="")
+            {
+                alert("Please Enter Some value");
+            }
+            else
+            {
+                $.ajax({
+                    url:'addaddress.php',
+                    type:'POST',
+                    data:{
+                        oid:x1,
+                        address:x2
+                    },
+                    success:function(){
+                        $("#addresssubmit").attr("data-bs-dismiss","modal");
+                    }
+                })
+            }
+        })
+    });
+</script>
