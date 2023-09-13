@@ -38,7 +38,7 @@ include('header.php');
                 ?>
                         <div class="col-md-3 d-flex justify-content-center">
                             <div class="card" style="width: 18rem; height:18rem">
-                                <img class="img img-fluid hoveredImg" style="width: 18rem;height:15rem;object-fit: contain;" src="<?= $rec['image'] ?>" alt="Card image cap">
+                                <img class="img img-fluid" style="width: 18rem;height:15rem;object-fit: contain;" src="<?= $rec['image'] ?>" alt="Card image cap">
                                 <div class="card-body">
                                     <p class="lead"><?= $rec['name']; ?></p>
                                 </div>
