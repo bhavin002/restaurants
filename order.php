@@ -32,7 +32,6 @@ include('header.php');
                                     <th>Status</th>
                                     <th>Order Value</th>
                                     <th class='text-center'>Action</th>
-                                    <th class='text-center'>Add Adddress</th>
                                     <th class='text-center'>Download Bill</th>
                                 </tr>
                             </thead>
@@ -108,42 +107,6 @@ include('header.php');
                                         </div>
                                     </td>
                                     <td>
-                                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal<?= $rec['id']; ?>">Add</button>
-                                        <div class="modal" id="myModal<?= $rec['id']; ?>">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-
-                                                    <!-- Modal Header -->
-                                                    <div class="modal-header" style="background-color:aquamarine;">
-                                                        <h4 class="modal-title"><b>Adding Address After Download Your Bill</b></h4>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                                    </div>
-
-                                                    <!-- Modal body -->
-                                                    <div class="modal-body bg-primary">
-                                                        <form class="">
-                                                            <div class="mb-3 mt-3 form-group">
-                                                                <label class="text-light">Order Id : -</label>
-                                                                <input type="text" class="form-control" value="<?= $rec['id']; ?>" id="oid1" disabled/>
-                                                            </div>
-                                                            <div class="mb-3 mt-3 form-group">
-                                                                <label for="address" class="text-light">Enter Address:</label>
-                                                                <input type="text" class="form-control" id="address" placeholder="Address" name="address">
-                                                            </div>
-                                                            <button type="button" class="btn btn-warning" id="addresssubmit">Submit</button>
-                                                        </form>
-                                                    </div>
-                                                    <!-- Modal footer -->
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </td>
-                                    <td>
                                         <a href="order_bill_pdf.php?user_id=<?= $rec['customer_id'] ?>&order_id=<?= $rec['id'] ?>" download>Download</a>
                                     </td>
                                 </tr>
@@ -161,32 +124,3 @@ include('header.php');
 <?php
 include('footer_javascript.php');
 ?>
-
-<script>
-
-    $(document).ready(()=>{
-        $("#addresssubmit").click(()=>{
-            var x1 = $("#oid1").val();
-            var x2 = $("#address").val();
-            
-            if(x1 === "" || x2 ==="")
-            {
-                alert("Please Enter Some value");
-            }
-            else
-            {
-                $.ajax({
-                    url:'addaddress.php',
-                    type:'POST',
-                    data:{
-                        oid:x1,
-                        address:x2
-                    },
-                    success:function(){
-                        $("#addresssubmit").attr("data-bs-dismiss","modal");
-                    }
-                })
-            }
-        })
-    });
-</script>
