@@ -1,5 +1,7 @@
 <?php
-session_start();
+    if (!isset($_SESSION)) {
+        session_start();
+    }
 include('./dbconf.php');
 
 // Delete Category
@@ -33,6 +35,8 @@ if (isset($_POST['update']) && isset($_POST['id'])) {
     $item_name = $_POST['item_name'];
     $category = $_POST['category'];
     $price = $_POST['price'];
+    $qty = $_POST['qty'];
+    $detail = $_POST['detail'];
 
     // Searching category if exists or not.
     $menu_item_exist = $con->query("select * from menu_item where id=$itemId limit 1")->fetch_assoc();
@@ -40,7 +44,7 @@ if (isset($_POST['update']) && isset($_POST['id'])) {
 
         // Check if image is uploaded or not. If uploaded then we will update image also.
         if ($_FILES["image"]['name'] == null) {
-            $updateQuery  = $con->query("update menu_item set item_name='$item_name',category_id='$category',price='$price' where id=$itemId");
+            $updateQuery  = $con->query("update menu_item set item_name='$item_name',detail='$detail',category_id=$category,price=$price,qty=$qty where id=$itemId");
             $statusMsg = "The " . $item_name . " has been successfully updated .";
         } else {
 
@@ -104,6 +108,8 @@ if (isset($_POST['item_name']) && isset($_POST['category']) && isset($_POST['pri
         $item_name = $_POST['item_name'];
         $category = $_POST['category'];
         $price = $_POST['price'];
+        $qty = $_POST['qty'];
+        $detail = $_POST['detail'];
         $imageFileName = $_POST['item_name'] . '-' . time() . "." . $fileType;
 
         //Uploading image to folder. 
@@ -111,7 +117,7 @@ if (isset($_POST['item_name']) && isset($_POST['category']) && isset($_POST['pri
 
             // Insert image file name into database
             $dbImageFileName = "$dbTargetDirPath" . "$imageFileName";
-            $insert = $con->query("INSERT into menu_item (item_name,category_id,price,image) VALUES ('$item_name', '$category','$price','$dbImageFileName')");
+            $insert = $con->query("INSERT into menu_item (item_name,detail,category_id,price,image,qty) VALUES ('$item_name','$detail', $category,$price,'$dbImageFileName',$qty)");
             if ($insert) {
                 $statusMsg = "The " . $item_name . " has been successfully inserted .";
             } else {

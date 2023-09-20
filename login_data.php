@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 include('dbconf.php');
 
@@ -19,13 +21,19 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             $_SESSION["fname"] = $row["fname"];
             $_SESSION["email"] = $row["email"];
             $_SESSION['is_admin'] = $row["is_admin"];
+            if($_SESSION['is_admin']=='1'){
+                header("Location: index.php");
+                exit;
+            }
             header("Location: index.php");
             exit;
         } else {
-            echo "Invalid password";
+            $_SESSION['message'] = "Invalid user id and password";
+            header("Location: login.php");
         }
     } else {
-        echo "User not found";
+        $_SESSION['message'] = "User Not Founded";
+        header("Location: login.php");
     }
 
     $con->close();

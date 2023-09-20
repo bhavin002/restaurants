@@ -8,11 +8,16 @@ include('header.php');
     <?php
     include('navbar.php');
     ?>
-
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
     <section id="book-a-table" class="book-a-table">
         <div class="container">
             <div class="section-header">
                 <p>Login</p>
+            </div>
+            <div>
+                <?php
+                    include('message.php');
+                ?>
             </div>
             <div class="row g-0">
                 <div class="col-lg-4 reservation-img" style="background-image: url(assets/img/reservation.jpg);"></div>
@@ -32,8 +37,12 @@ include('header.php');
                                 <div class="error-message"></div>
                                 <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!</div>
                             </div>
-                            <div><button class="btn btn-danger" type="submit">Login</button>&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-danger" type="submit"><a href="signup.php" style="color:aliceblue;font-weight: bold;">signup</a></button></div>
+                            <div>
+                                <button class="btn btn-danger mt-2" type="submit">Login</button>&nbsp;&nbsp;&nbsp;
+                                <button class="btn btn-danger mt-2" type="button"><a href="signup.php" style="color:aliceblue;">Signup
+                                    </a></button>
+                            </div>
+                            <!-- <button class="btn btn-danger" type="submit"><a href="signup.php" style="color:aliceblue;font-weight: bold;">signup</a></button> -->
                     </form>
                 </div>
             </div>

@@ -1,6 +1,8 @@
 <?php
-session_start();
-include('./dbconf.php');
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    include('dbconf.php');
 
 // Delete Category
 if (isset($_GET['delete']) && isset($_GET['id'])) {
@@ -92,6 +94,7 @@ if (isset($_POST['name']) && isset($_FILES['image'])) {
 
     // For uploading image of category.
     $uploadTargetDir = $_SERVER['DOCUMENT_ROOT'] . "/restaurants/uploads/category/";
+    //C:\xampp\htdocs\restaurants\uploads\category
     $dbTargetDirPath = "/restaurants/uploads/category/";
     $uploadedFileName = basename($_FILES["image"]["name"]);
 
@@ -121,6 +124,7 @@ if (isset($_POST['name']) && isset($_FILES['image'])) {
     }
     $_SESSION['message'] = $statusMsg;
     header("Location: category.php");
+    exit();
 }
 
 echo "Invalid request made.";

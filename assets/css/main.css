@@ -1277,7 +1277,7 @@ section {
   padding: 12px 15px;
 }
 
-.book-a-table .php-email-form button[type=submit] {
+.book-a-table .php-email-form button[type=submit],.book-a-table .php-email-form button[type=button]{
   background: var(--color-primary);
   border: 0;
   padding: 14px 60px;
@@ -1656,4 +1656,9 @@ section {
 
 .footer .credits a {
   color: #fff;
+}
+
+/* header css */
+.hoveredImg:hover{
+  transform: scale(1.25);
 }
