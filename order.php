@@ -44,7 +44,6 @@ include('header.php');
                                     where CO.customer_id = $customer_id group by CO.id ORDER BY DATE DESC;";
 
                             $res = $con->query($order_query);
-
                             foreach ($res as $rec) {
                             ?>
                                 <tr>

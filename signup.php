@@ -45,7 +45,15 @@ include('header.php');
                         <div class="text-center mt-3"><button type="submit">Sign Up</button></div>
                     </form>
                 </div>
+                <div class="container mt-3">
+                    <?php
+                        include "message.php";
+                    ?>
+                </div>
             </div>
         </div>
     </section>
 </body>
+<?php
+    include "footer_javascript.php";
+?>

@@ -173,7 +173,7 @@ include('header.php');
                 <section id="book-a-table" class="book-a-table p-4">
                     <div class="container">
                         <div class="section-header">
-                            <p>Tranding Category Of Our Restaurant</p>
+                            <p>Trending Category Of Our Restaurant</p>
                         </div>
                     </div>
                     <div class="container">

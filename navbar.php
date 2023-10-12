@@ -38,7 +38,7 @@ if (!isset($_SESSION)) {
                         <li class="dropdown"><a href="#"><span>Admin Panel</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                             <ul>
                                 <li><a href="category.php">Category</a></li>
-                                <li><a href="menu_item.php">Menu_item</a></li>
+                                <li><a href="menu_item.php">Menu Item</a></li>
                                 <li class="dropdown"><a href="customer_orders.php"><span>Orders</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                                     <ul>
                                         <li><a href="customer_orders.php?status=process">To Process</a></li>

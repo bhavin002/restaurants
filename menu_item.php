@@ -86,7 +86,7 @@ include('header.php');
                                             <div class='row col-10 mx-auto'>
                                                 <div class='col-3 mx-auto'>
                                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#openUpdateModal<?= $rec['id']; ?>">Update</button>
-                                                    <a href="menu_item_data.php?delete=true&id=<?= $rec['id'] ?>" class='btn btn-danger mt-3'>Delete</a>
+                                                    <button type="button" class="btn btn-danger mt-3" onclick="confirmDeleteMenuItem(<?= $rec['id'] ?>)" >Delete</button>
                                                 </div>
                                             </div>
                                         </td>
@@ -168,6 +168,15 @@ include('header.php');
     }
     ?>
 </body>
+
+<script>
+    function confirmDeleteMenuItem(menuItemId){
+        let confirmation = confirm('Are you sure you want to delete?');
+        if (confirmation){
+            window.location.href = `menu_item_data.php?delete=true&id=${menuItemId}`;
+        }
+    }
+</script>
 <?php
 include('footer_javascript.php');
 ?>
