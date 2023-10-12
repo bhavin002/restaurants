@@ -61,7 +61,7 @@ include('header.php');
             <div class="col-md-11 col-sm-12 mx-auto">
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
-                        <img src="images/home2.avif" alt="" width="665" height="542">
+                        <img src="images/about1.jpg" alt="" width="665" height="542">
                     </div>
                     <div class="col-md-6 col-sm-6"
                         style="padding: 94px 83px;border: 2px solid orange;border-radius: 40px;">
@@ -158,7 +158,7 @@ include('header.php');
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12">
-                        <img class="ps-3 rounded-4" src="images/home3.avif" alt="" width="680" height="542">
+                        <img class="ps-3 rounded-4" src="images/food6.png" alt="" width="680" height="542">
                     </div>
                 </div>
             </div>

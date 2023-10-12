@@ -22,6 +22,7 @@ if (isset($_POST['fname']) && isset($_POST['lname']) && isset($_POST['email']) &
     if ($con->query($query)) {
         header("Location: login.php");
     }
+    
 } else {
     echo "Invalid Request";
 }

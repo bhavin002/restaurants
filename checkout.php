@@ -41,7 +41,7 @@ if (isset($_POST['process_to_checkout'])) {
     $cart_query = $con->query($query);
     
     if($cart_query){
-        $_SESSION['message'] = 'Order Confirmed Successfully.';
+        $_SESSION['message'] = 'Your order is succesfully placed.In few minute your order can approve from admin.';
         header('Location: cart.php');
         exit();
     }
